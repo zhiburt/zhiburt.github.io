@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on mzhiburt</title>
+    <link>https://maximzhiburt.github.io/tags/</link>
+    <description>Recent content in Tags on mzhiburt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 Jul 2021 22:35:34 +0300</lastBuildDate><atom:link href="https://maximzhiburt.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>123</title>
+      <link>https://maximzhiburt.github.io/tags/123/</link>
+      <pubDate>Wed, 21 Jul 2021 22:35:34 +0300</pubDate>
+      
+      <guid>https://maximzhiburt.github.io/tags/123/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>general</title>
+      <link>https://maximzhiburt.github.io/tags/general/</link>
+      <pubDate>Wed, 21 Jul 2021 22:35:34 +0300</pubDate>
+      
+      <guid>https://maximzhiburt.github.io/tags/general/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Markdown</title>
+      <link>https://maximzhiburt.github.io/tags/markdown/</link>
+      <pubDate>Thu, 30 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://maximzhiburt.github.io/tags/markdown/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HTML</title>
+      <link>https://maximzhiburt.github.io/tags/html/</link>
+      <pubDate>Mon, 12 Mar 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://maximzhiburt.github.io/tags/html/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Juicy</title>
+      <link>https://maximzhiburt.github.io/tags/juicy/</link>
+      <pubDate>Mon, 23 Jan 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://maximzhiburt.github.io/tags/juicy/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
