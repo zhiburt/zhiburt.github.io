@@ -1,5 +1,5 @@
 /* Dark mode */
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
     body {
         background-color: #393E41;
         color: white;
@@ -32,10 +32,10 @@
     th, td { padding: 5px; }
     tr:nth-child(even) { background: #666 }
 
-} */
+}
 
- /* Light mode  */
-@media (prefers-color-scheme: light) {
+/* Light mode  */
+/* @media (prefers-color-scheme: light) {
     blockquote {
       background: #f9f9f9;
     }
@@ -62,7 +62,7 @@
     th, td { padding: 5px; }
     tr:nth-child(even) { background: #eee }
 
-}
+} */
 
 
 body {

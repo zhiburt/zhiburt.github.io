@@ -2,22 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://zhiburt.github.io/archive/</loc>
+    <lastmod>2021-07-23T17:08:08+03:00</lastmod>
+  </url><url>
+    <loc>https://zhiburt.github.io/</loc>
+    <lastmod>2021-07-23T17:08:08+03:00</lastmod>
+  </url><url>
+    <loc>https://zhiburt.github.io/archive/how-it-was-built/</loc>
+    <lastmod>2021-07-23T17:08:08+03:00</lastmod>
+  </url><url>
     <loc>https://zhiburt.github.io/tags/123/</loc>
     <lastmod>2021-07-21T22:35:34+03:00</lastmod>
   </url><url>
     <loc>https://zhiburt.github.io/categories/9999/</loc>
     <lastmod>2021-07-21T22:35:34+03:00</lastmod>
   </url><url>
-    <loc>https://zhiburt.github.io/archive/</loc>
-    <lastmod>2021-07-21T22:35:34+03:00</lastmod>
-  </url><url>
     <loc>https://zhiburt.github.io/categories/</loc>
     <lastmod>2021-07-21T22:35:34+03:00</lastmod>
   </url><url>
     <loc>https://zhiburt.github.io/tags/general/</loc>
-    <lastmod>2021-07-21T22:35:34+03:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/</loc>
     <lastmod>2021-07-21T22:35:34+03:00</lastmod>
   </url><url>
     <loc>https://zhiburt.github.io/archive/init/</loc>
@@ -28,39 +31,6 @@
   </url><url>
     <loc>https://zhiburt.github.io/categories/zxczc/</loc>
     <lastmod>2021-07-21T22:35:34+03:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/categories/example/</loc>
-    <lastmod>2018-08-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/tags/markdown/</loc>
-    <lastmod>2018-08-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/archive/post/2018-08-30-markdown-guide/</loc>
-    <lastmod>2018-08-30T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/categories/bullhorn/</loc>
-    <lastmod>2012-04-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/archive/post/hacker-with-horn/</loc>
-    <lastmod>2012-04-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/categories/blog/</loc>
-    <lastmod>2012-03-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/archive/post/2015-07-23-command-line-awesomeness/</loc>
-    <lastmod>2012-03-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/tags/html/</loc>
-    <lastmod>2012-03-12T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/categories/code/</loc>
-    <lastmod>2012-01-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/tags/juicy/</loc>
-    <lastmod>2012-01-23T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://zhiburt.github.io/archive/juicy-code/</loc>
-    <lastmod>2012-01-23T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://zhiburt.github.io/about/</loc>
   </url><url>
