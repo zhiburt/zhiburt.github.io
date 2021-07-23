@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>123 on mzhiburt</title>
-    <link>https://maximzhiburt.github.io/tags/123/</link>
+    <link>https://zhiburt.github.io/tags/123/</link>
     <description>Recent content in 123 on mzhiburt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Jul 2021 22:35:34 +0300</lastBuildDate><atom:link href="https://maximzhiburt.github.io/tags/123/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jul 2021 22:35:34 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/tags/123/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Init</title>
-      <link>https://maximzhiburt.github.io/archive/init/</link>
+      <link>https://zhiburt.github.io/archive/init/</link>
       <pubDate>Wed, 21 Jul 2021 22:35:34 +0300</pubDate>
       
-      <guid>https://maximzhiburt.github.io/archive/init/</guid>
+      <guid>https://zhiburt.github.io/archive/init/</guid>
       <description>This is first page ever for testing.
 echo &amp;#39;Hello World&amp;#39; </description>
     </item>
