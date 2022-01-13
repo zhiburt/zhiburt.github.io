@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on mzhiburt</title>
+    <title>Categories on Maxim Zhiburt Blog</title>
     <link>https://zhiburt.github.io/categories/</link>
-    <description>Recent content in Categories on mzhiburt</description>
+    <description>Recent content in Categories on Maxim Zhiburt Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Jul 2021 22:35:34 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Jan 2022 11:18:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>9999</title>
-      <link>https://zhiburt.github.io/categories/9999/</link>
-      <pubDate>Wed, 21 Jul 2021 22:35:34 +0300</pubDate>
+      <title>hugo</title>
+      <link>https://zhiburt.github.io/categories/hugo/</link>
+      <pubDate>Thu, 13 Jan 2022 11:18:01 +0300</pubDate>
       
-      <guid>https://zhiburt.github.io/categories/9999/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>zxczc</title>
-      <link>https://zhiburt.github.io/categories/zxczc/</link>
-      <pubDate>Wed, 21 Jul 2021 22:35:34 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/categories/zxczc/</guid>
+      <guid>https://zhiburt.github.io/categories/hugo/</guid>
       <description></description>
     </item>
     

@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Maxim Zhiburt Blog</title>
-    <link>https://zhiburt.github.io/</link>
-    <description>Recent content on Maxim Zhiburt Blog</description>
+    <title>Pages on Maxim Zhiburt Blog</title>
+    <link>https://zhiburt.github.io/pages/</link>
+    <description>Recent content in Pages on Maxim Zhiburt Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Jan 2022 11:18:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>How it was build</title>
-      <link>https://zhiburt.github.io/blog/posts/hello-world/</link>
-      <pubDate>Thu, 13 Jan 2022 11:18:01 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/blog/posts/hello-world/</guid>
-      <description>The site is built by Hugo with Hugo-Octopress theme.
-I have bumped into this theme coinsidentaly on this blog http://blog.pnkfx.org/.
-If you guess what is the thing in the header. This is my take on awesome octupus from the original theme http://octopress.org/ page. The idea that it resembles a shot from Ninja Turtles tv series.
- source - https://tvtropes.org/pmwiki/  We override the original theme a little bit to be more compatible with original site.</description>
-    </item>
-    
+    <lastBuildDate>Tue, 01 Jan 2013 21:40:56 -0500</lastBuildDate><atom:link href="https://zhiburt.github.io/pages/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Who is this guy?</title>
       <link>https://zhiburt.github.io/about/</link>
