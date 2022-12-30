@@ -1973,9 +1973,9 @@ body > header h1::after {
 body > header h1::after {
 	content: "";
 	position: absolute;
-	left: 7.5em;
+	left: 3.8em;
 	/* right: 9em; */
-	top: 1.2em;
+	top: 0.7em;
 	/* height: 10px; */
 	/* text-indent: -119988px; */
 	overflow: hidden;
@@ -1983,8 +1983,8 @@ body > header h1::after {
 	background-image: url('/images/asaa2.svg');
 	background-repeat: no-repeat;
 	/* background-position: 50% 50%; */
-	width: 3em;
-	height: 3em;
+	width: 4em;
+	height: 5em;
 	/* top: -.15em; */
 	/* right: -.8em; */
 	/* left: auto; */
@@ -2026,8 +2026,8 @@ body > header {
 
 body > header {
 	font-size: 1em;
-	padding-top: 1.5em;
-	padding-bottom: 1.5em;
+	padding-top: 1.0em;
+	padding-bottom: 0.5em;
 }
 
 /* body > header hgroup {
