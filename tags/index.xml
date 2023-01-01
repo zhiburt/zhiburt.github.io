@@ -5,6 +5,25 @@
     <link>https://zhiburt.github.io/tags/</link>
     <description>Recent content in Tags on Maxim Zhiburt</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://zhiburt.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Jan 2023 04:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>javascript</title>
+      <link>https://zhiburt.github.io/tags/javascript/</link>
+      <pubDate>Sun, 01 Jan 2023 04:21:01 +0300</pubDate>
+      
+      <guid>https://zhiburt.github.io/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://zhiburt.github.io/tags/python/</link>
+      <pubDate>Sun, 01 Jan 2023 04:21:01 +0300</pubDate>
+      
+      <guid>https://zhiburt.github.io/tags/python/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

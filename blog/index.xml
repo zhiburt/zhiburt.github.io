@@ -6,13 +6,23 @@
     <description>Recent content in Blogs on Maxim Zhiburt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Jan 2022 11:18:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 01 Jan 2023 04:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cope with Garmin &amp;&amp; Strava limits</title>
+      <link>https://zhiburt.github.io/blog/posts/strava-note/</link>
+      <pubDate>Sun, 01 Jan 2023 04:21:01 +0300</pubDate>
+      
+      <guid>https://zhiburt.github.io/blog/posts/strava-note/</guid>
+      <description>One upon a time there has been a pile of activitis in Garmin Connect which was not synced with Strava. It was thought it will be an easy thing to do to just syncronize them via some import/export feature. But it turned out not to be the case.
+A case agains automatic syncranization You can sync your Garmin Connect and Strava directly? But in such case you&#39;ll import/export all data available.</description>
+    </item>
+    
     <item>
       <title>How it was build</title>
-      <link>https://zhiburt.github.io/blog/posts/hello-world/</link>
+      <link>https://zhiburt.github.io/blog/posts/hello-world-copy/</link>
       <pubDate>Thu, 13 Jan 2022 11:18:01 +0300</pubDate>
       
-      <guid>https://zhiburt.github.io/blog/posts/hello-world/</guid>
+      <guid>https://zhiburt.github.io/blog/posts/hello-world-copy/</guid>
       <description>The site is built by Hugo with Hugo-Octopress theme.
 I have bumped into this theme coinsidentaly on this blog http://blog.pnkfx.org/.
 If you guess what is the thing in the header. This is my take on awesome octupus from the original theme http://octopress.org/ page. The idea that it resembles a shot from Ninja Turtles tv series.

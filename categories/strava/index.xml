@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>strava on Maxim Zhiburt</title>
+    <link>https://zhiburt.github.io/categories/strava/</link>
+    <description>Recent content in strava on Maxim Zhiburt</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Jan 2023 04:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/categories/strava/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cope with Garmin &amp;&amp; Strava limits</title>
+      <link>https://zhiburt.github.io/blog/posts/strava-note/</link>
+      <pubDate>Sun, 01 Jan 2023 04:21:01 +0300</pubDate>
+      
+      <guid>https://zhiburt.github.io/blog/posts/strava-note/</guid>
+      <description>One upon a time there has been a pile of activitis in Garmin Connect which was not synced with Strava. It was thought it will be an easy thing to do to just syncronize them via some import/export feature. But it turned out not to be the case.
+A case agains automatic syncranization You can sync your Garmin Connect and Strava directly? But in such case you&#39;ll import/export all data available.</description>
+    </item>
+    
+  </channel>
+</rss>
