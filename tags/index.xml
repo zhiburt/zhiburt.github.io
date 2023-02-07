@@ -6,7 +6,16 @@
     <description>Recent content in Tags on Maxim Zhiburt</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Jan 2023 04:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 07 Feb 2023 04:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust</title>
+      <link>https://zhiburt.github.io/tags/rust/</link>
+      <pubDate>Tue, 07 Feb 2023 04:21:01 +0300</pubDate>
+      
+      <guid>https://zhiburt.github.io/tags/rust/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>javascript</title>
       <link>https://zhiburt.github.io/tags/javascript/</link>

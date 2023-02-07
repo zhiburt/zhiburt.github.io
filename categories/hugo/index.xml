@@ -9,10 +9,10 @@
     <lastBuildDate>Thu, 13 Jan 2022 11:18:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How it was build</title>
-      <link>https://zhiburt.github.io/blog/posts/hello-world-copy/</link>
+      <link>https://zhiburt.github.io/blog/posts/how-it-was-built/</link>
       <pubDate>Thu, 13 Jan 2022 11:18:01 +0300</pubDate>
       
-      <guid>https://zhiburt.github.io/blog/posts/hello-world-copy/</guid>
+      <guid>https://zhiburt.github.io/blog/posts/how-it-was-built/</guid>
       <description>The site is built by Hugo with Hugo-Octopress theme.
 I have bumped into this theme coinsidentaly on this blog http://blog.pnkfx.org/.
 If you guess what is the thing in the header. This is my take on awesome octupus from the original theme http://octopress.org/ page. The idea that it resembles a shot from Ninja Turtles tv series.
