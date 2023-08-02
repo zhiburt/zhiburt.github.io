@@ -38,7 +38,7 @@
   <meta name="author" content="Maxim Zhiburt">
 
   
-  <meta name="generator" content="Hugo 0.108.0">
+  <meta name="generator" content="Hugo 0.112.3">
 
   
   
@@ -157,63 +157,63 @@ it would be fine.
 But I know that <code>rust</code> does not allow that (yet, cause it's self-referenctial struct).
 So I was thinking maybe to cast <code>&amp;'a</code> into <code>&amp;'static</code> and be fine.</p>
 <h4 id="structure">Structure</h4>
-<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fe8019">struct</span> CsvStringRecord {
-</span></span><span style="display:flex;"><span>    record: StringRecord,
-</span></span><span style="display:flex;"><span>    iter: <span style="color:#fabd2f">Option</span><span style="color:#fe8019">&lt;</span>StringRecordIter<span style="color:#fe8019">&lt;&#39;</span><span style="color:#fabd2f">static</span><span style="color:#fe8019">&gt;&gt;</span>,
-</span></span><span style="display:flex;"><span>}
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">struct</span> <span style="color:#ecbe7b">CsvStringRecord</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    record: <span style="color:#ecbe7b">StringRecord</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>    iter: <span style="color:#7fbaf5">Option</span><span style="color:#bc74c4">&lt;</span>StringRecordIter<span style="color:#bc74c4">&lt;</span><span style="color:#7fbaf5">&#39;static</span><span style="color:#bc74c4">&gt;&gt;</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
 </span></span></code></pre></div><h4 id="heres-a-building-function">Here's a building function</h4>
-<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fe8019">impl</span> CsvStringRecord<span style="color:#fe8019">&lt;&#39;</span><span style="color:#fabd2f">static</span><span style="color:#fe8019">&gt;</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">fn</span> <span style="color:#fabd2f">new</span>(record: StringRecord) -&gt; Self {
-</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">let</span> <span style="color:#fe8019">mut</span> t <span style="color:#fe8019">=</span> Self { record, iter: <span style="color:#fabd2f">None</span> };
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">impl</span> CsvStringRecord<span style="color:#bc74c4">&lt;</span><span style="color:#7fbaf5">&#39;static</span><span style="color:#bc74c4">&gt;</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">new</span><span style="color:#56b6c2">(</span>record: <span style="color:#ecbe7b">StringRecord</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">Self</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">let</span> <span style="color:#7fbaf5">mut</span> t <span style="color:#bc74c4">=</span> <span style="color:#7fbaf5">Self</span> <span style="color:#56b6c2">{</span> record<span style="color:#56b6c2">,</span> iter: <span style="color:#7fbaf5">None</span> <span style="color:#56b6c2">};</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">let</span> iter <span style="color:#fe8019">=</span> t.record.iter();
-</span></span><span style="display:flex;"><span>        <span style="color:#fe8019">let</span> static_iter <span style="color:#fe8019">=</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#fe8019">unsafe</span> { std::mem::transmute::<span style="color:#fe8019">&lt;</span>StringRecordIter<span style="color:#fe8019">&lt;&#39;</span><span style="color:#fabd2f">_</span><span style="color:#fe8019">&gt;</span>, StringRecordIter<span style="color:#fe8019">&lt;&#39;</span><span style="color:#fabd2f">static</span><span style="color:#fe8019">&gt;&gt;</span>(iter) };
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">let</span> iter <span style="color:#bc74c4">=</span> t<span style="color:#56b6c2">.</span>record<span style="color:#56b6c2">.</span>iter<span style="color:#56b6c2">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">let</span> static_iter <span style="color:#bc74c4">=</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#7fbaf5">unsafe</span> <span style="color:#56b6c2">{</span> std::mem::transmute::<span style="color:#bc74c4">&lt;</span>StringRecordIter<span style="color:#bc74c4">&lt;</span><span style="color:#7fbaf5">&#39;_</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">,</span> StringRecordIter<span style="color:#bc74c4">&lt;</span><span style="color:#7fbaf5">&#39;static</span><span style="color:#bc74c4">&gt;&gt;</span><span style="color:#56b6c2">(</span>iter<span style="color:#56b6c2">)</span> <span style="color:#56b6c2">};</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        t.iter <span style="color:#fe8019">=</span> <span style="color:#fabd2f">Some</span>(static_iter);
+</span></span><span style="display:flex;"><span>        t<span style="color:#56b6c2">.</span>iter <span style="color:#bc74c4">=</span> <span style="color:#7fbaf5">Some</span><span style="color:#56b6c2">(</span>static_iter<span style="color:#56b6c2">);</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        t
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
 </span></span></code></pre></div><p>But it doesn't work.....<br>
 It comes with a stable <em>SIGSEGV</em> panic.</p>
 <h2 id="why-it-doesn-not-work">Why it doesn not work?</h2>
 <p>Apparently the problem was in a <code>.iter()</code> call.
 We take a refence local to a <code>CsvStringRecord::new</code> function.</p>
-<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fe8019">impl</span><span style="color:#fe8019">&lt;&#39;</span><span style="color:#b8bb26;font-weight:bold">a</span><span style="color:#fe8019">&gt;</span> <span style="color:#fabd2f">IntoIterator</span> <span style="color:#fe8019">for</span> <span style="color:#fe8019">&amp;&#39;</span><span style="color:#b8bb26;font-weight:bold">a</span> StringRecord {
-</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">type</span> IntoIter <span style="color:#fe8019">=</span> StringRecordIter<span style="color:#fe8019">&lt;&#39;</span><span style="color:#b8bb26;font-weight:bold">a</span><span style="color:#fe8019">&gt;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">type</span> Item <span style="color:#fe8019">=</span> <span style="color:#fe8019">&amp;&#39;</span><span style="color:#b8bb26;font-weight:bold">a</span> <span style="color:#fabd2f">str</span>;
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">impl</span><span style="color:#bc74c4">&lt;</span><span style="color:#bc74c4">&#39;a</span><span style="color:#bc74c4">&gt;</span> <span style="color:#7fbaf5">IntoIterator</span> <span style="color:#7fbaf5">for</span> <span style="color:#bc74c4">&amp;</span><span style="color:#bc74c4">&#39;a</span> StringRecord <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">type</span> <span style="color:#ecbe7b">IntoIter</span> <span style="color:#bc74c4">=</span> StringRecordIter<span style="color:#bc74c4">&lt;</span><span style="color:#bc74c4">&#39;a</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">type</span> <span style="color:#ecbe7b">Item</span> <span style="color:#bc74c4">=</span> <span style="color:#bc74c4">&amp;</span><span style="color:#bc74c4">&#39;a</span> <span style="color:#57c7ff;font-weight:bold">str</span><span style="color:#56b6c2">;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8ec07c">#[inline]</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">fn</span> <span style="color:#fabd2f">into_iter</span>(self) -&gt; StringRecordIter<span style="color:#fe8019">&lt;&#39;</span><span style="color:#b8bb26;font-weight:bold">a</span><span style="color:#fe8019">&gt;</span> {
-</span></span><span style="display:flex;"><span>        StringRecordIter(self.<span style="color:#d3869b">0.</span>iter())
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fe8019">impl</span><span style="color:#fe8019">&lt;&#39;</span><span style="color:#b8bb26;font-weight:bold">r</span><span style="color:#fe8019">&gt;</span> <span style="color:#fabd2f">IntoIterator</span> <span style="color:#fe8019">for</span> <span style="color:#fe8019">&amp;&#39;</span><span style="color:#b8bb26;font-weight:bold">r</span> ByteRecord {
-</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">type</span> IntoIter <span style="color:#fe8019">=</span> ByteRecordIter<span style="color:#fe8019">&lt;&#39;</span><span style="color:#b8bb26;font-weight:bold">r</span><span style="color:#fe8019">&gt;</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">type</span> Item <span style="color:#fe8019">=</span> <span style="color:#fe8019">&amp;&#39;</span><span style="color:#b8bb26;font-weight:bold">r</span> [<span style="color:#fabd2f">u8</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">#[inline]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">into_iter</span><span style="color:#56b6c2">(</span><span style="color:#7fbaf5">self</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">StringRecordIter</span><span style="color:#bc74c4">&lt;</span><span style="color:#bc74c4">&#39;a</span><span style="color:#bc74c4">&gt;</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        StringRecordIter<span style="color:#56b6c2">(</span><span style="color:#7fbaf5">self</span><span style="color:#56b6c2">.</span><span style="color:#56b6c2">0.</span>iter<span style="color:#56b6c2">())</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">impl</span><span style="color:#bc74c4">&lt;</span><span style="color:#bc74c4">&#39;r</span><span style="color:#bc74c4">&gt;</span> <span style="color:#7fbaf5">IntoIterator</span> <span style="color:#7fbaf5">for</span> <span style="color:#bc74c4">&amp;</span><span style="color:#bc74c4">&#39;r</span> ByteRecord <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">type</span> <span style="color:#ecbe7b">IntoIter</span> <span style="color:#bc74c4">=</span> ByteRecordIter<span style="color:#bc74c4">&lt;</span><span style="color:#bc74c4">&#39;r</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">type</span> <span style="color:#ecbe7b">Item</span> <span style="color:#bc74c4">=</span> <span style="color:#bc74c4">&amp;</span><span style="color:#bc74c4">&#39;r</span> <span style="color:#56b6c2">[</span><span style="color:#57c7ff;font-weight:bold">u8</span><span style="color:#56b6c2">];</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8ec07c">#[inline]</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#fe8019">fn</span> <span style="color:#fabd2f">into_iter</span>(self) -&gt; ByteRecordIter<span style="color:#fe8019">&lt;&#39;</span><span style="color:#b8bb26;font-weight:bold">r</span><span style="color:#fe8019">&gt;</span> {
-</span></span><span style="display:flex;"><span>        ByteRecordIter {
-</span></span><span style="display:flex;"><span>            <span style="color:#928374;font-style:italic">// &lt;- RIGHT HERE we get the reference to a stack,
-</span></span></span><span style="display:flex;"><span><span style="color:#928374;font-style:italic"></span>            <span style="color:#928374;font-style:italic">// but the reference is no more valid when we leave a `new` function,
-</span></span></span><span style="display:flex;"><span><span style="color:#928374;font-style:italic"></span>            <span style="color:#928374;font-style:italic">// so we are referencing an invalid address
-</span></span></span><span style="display:flex;"><span><span style="color:#928374;font-style:italic"></span>            r: self,
-</span></span><span style="display:flex;"><span>            last_start: self.as_slice().len(),
-</span></span><span style="display:flex;"><span>            last_end: <span style="color:#d3869b">0</span>,
-</span></span><span style="display:flex;"><span>            i_forward: <span style="color:#d3869b">0</span>,
-</span></span><span style="display:flex;"><span>            i_reverse: self.len(),
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">#[inline]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">into_iter</span><span style="color:#56b6c2">(</span><span style="color:#7fbaf5">self</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">ByteRecordIter</span><span style="color:#bc74c4">&lt;</span><span style="color:#bc74c4">&#39;r</span><span style="color:#bc74c4">&gt;</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        ByteRecordIter <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#3e4460">// &lt;- RIGHT HERE we get the reference to a stack,
+</span></span></span><span style="display:flex;"><span><span style="color:#3e4460"></span>            <span style="color:#3e4460">// but the reference is no more valid when we leave a `new` function,
+</span></span></span><span style="display:flex;"><span><span style="color:#3e4460"></span>            <span style="color:#3e4460">// so we are referencing an invalid address
+</span></span></span><span style="display:flex;"><span><span style="color:#3e4460"></span>            r: <span style="color:#ecbe7b">self</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>            last_start: <span style="color:#ecbe7b">self</span><span style="color:#56b6c2">.</span>as_slice<span style="color:#56b6c2">().</span>len<span style="color:#56b6c2">(),</span>
+</span></span><span style="display:flex;"><span>            last_end: <span style="color:#56b6c2">0</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>            i_forward: <span style="color:#56b6c2">0</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>            i_reverse: <span style="color:#ecbe7b">self</span><span style="color:#56b6c2">.</span>len<span style="color:#56b6c2">(),</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
 </span></span></code></pre></div><h1 id="conclusion">Conclusion</h1>
 <p>Be carefull when doing <code>unsafe</code>.</p>
 <p>It would work if the <code>&amp;'a</code> reference was against a buffer itself via pointer but not a reference to a sub structure.</p>
 <p>For example that's how we could get such a reference for <code>&amp;str</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#ebdbb2;background-color:#282828;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fe8019">unsafe</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#fabd2f">str</span>::from_utf8_unchecked(slice::from_raw_parts(text.as_ptr(), text.len()))
-</span></span><span style="display:flex;"><span>};
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">unsafe</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#57c7ff;font-weight:bold">str</span>::from_utf8_unchecked<span style="color:#56b6c2">(</span>slice::from_raw_parts<span style="color:#56b6c2">(</span>text<span style="color:#56b6c2">.</span>as_ptr<span style="color:#56b6c2">(),</span> text<span style="color:#56b6c2">.</span>len<span style="color:#56b6c2">()))</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">};</span>
 </span></span></code></pre></div><p>But we can't do it for <code>csv::StringRecords</code> cause the buffer is private.</p>
 <p>Take care.</p>
 
@@ -241,6 +241,8 @@ We take a refence local to a <code>CsvStringRecord::new</code> function.</p>
         <a class="basic-alignment left" href="https://zhiburt.github.io/blog/posts/strava-note/" title="Cope with Garmin &amp;&amp; Strava limits">Cope with Garmin &amp;&amp; Strava limits</a>
     
 
+    
+      <a class="basic-alignment right" href="https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/" title="Interesting rustc traitbound issue with a match/if">Interesting rustc traitbound issue with a match/if</a>
     
   </p>
   
@@ -272,7 +274,7 @@ We take a refence local to a <code>CsvStringRecord::new</code> function.</p>
     
     
 
-    <p> try not to become a man of success, but rather try to become a man of value. </p>
+    <p> If the message is true, don&#39;t forget it, and forgive the messenger, even if he does. </p>
 
   </section>
 

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  
+    
+    
+      <link href="/css/fonts.css" rel="stylesheet" type="text/css">
+    
+  
+
+  
+  <title>Interesting rustc traitbound issue with a match/if</title>
+
+  
+  
+  <link rel="stylesheet" href="/css/hugo-octopress.css">
+
+  
+  
+
+  
+    <link rel="stylesheet" href="/css/fork-awesome.min.css">
+  
+
+  
+  <link href="https://zhiburt.github.io/favicon.png" rel="icon">
+
+  
+  
+
+  <meta name="description" content="" />
+  <meta name="keywords" content="[Maxim Zhiburt Zhiburt]">
+  <meta name="author" content="Maxim Zhiburt">
+
+  
+  <meta name="generator" content="Hugo 0.112.3">
+
+  
+  
+
+  
+  
+
+  
+  
+
+
+
+</head>
+<body>
+
+
+<header role="banner">
+<hgroup>
+  
+  <h1><a href="https://zhiburt.github.io/">Maxim Zhiburt</a></h1>
+    <h2>&#39;s remarks</h2>
+</hgroup></header>
+
+
+<nav role="navigation">
+
+
+<fieldset class="mobile-nav">
+  
+  <select onchange="location = this.value;">
+    <option value="">Navigate…</option>
+      
+        <option value="https://zhiburt.github.io/home/">» Home</option>
+      
+        <option value="https://zhiburt.github.io/archive/">» Archive</option>
+      
+        <option value="https://zhiburt.github.io/about/">» About</option>
+      
+  </select>
+</fieldset>
+
+
+<ul class="main-navigation">
+  
+  
+    
+      <li><a href="https://zhiburt.github.io/home/" title="Home"  rel="noopener noreferrer">Home</a></li>
+    
+  
+    
+      <li><a href="https://zhiburt.github.io/archive/" title="Archive"  rel="noopener noreferrer">Archive</a></li>
+    
+  
+    
+      <li><a href="https://zhiburt.github.io/about/" title="About"  rel="noopener noreferrer">About</a></li>
+    
+  
+</ul>
+
+<ul class="subscription">
+  
+    
+        <a href="https://zhiburt.github.io/index.xml" target="_blank" type="application/rss+xml" title="RSS" rel="noopener noreferrer"><i class="fa fa-rss fa-lg"></i></a>
+    
+  
+</ul>
+
+
+  <form action="https://www.duckduckgo.com/" method="get" target="_blank" rel="noopener noreferrer">
+    <fieldset role="search">
+      <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+      <input type="hidden" name="q" value="site:https://zhiburt.github.io/" />
+    </fieldset>
+  </form>
+
+</nav>
+
+
+<div id="main">
+  <div id="content">
+    <div>
+      <article class="hentry" role="article">
+
+        
+        
+
+<header>
+  <p class="meta">Aug 2, 2023
+     - 3 minute read 
+    
+
+    
+    
+      - <a class="label" href="https://zhiburt.github.io/categories/programming/">programming </a>
+    
+  </p>
+  <h1 class="entry-title">
+     Interesting rustc traitbound issue with a match/if 
+  </h1>
+</header>
+
+
+        <div class="entry-content">
+          
+          
+          
+          <h2 id="agenda">Agenda</h2>
+<p>Here we will explore some strange behavior when calling function in a <code>match</code>/<code>if</code> statement.</p>
+<h2 id="base">Base</h2>
+<p>There's such a code example creating a HTTP router using 
+<a href="https://github.com/tokio-rs/axum" target="_blank" rel="noopener"><code>tokio-rs/axum</code></a>.
+It works perfectly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">use</span> axum::<span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        extract::<span style="color:#56b6c2">{</span>Request<span style="color:#56b6c2">,</span> State<span style="color:#56b6c2">},</span>
+</span></span><span style="display:flex;"><span>        middleware::<span style="color:#56b6c2">{</span>from_fn_with_state<span style="color:#56b6c2">,</span> Next<span style="color:#56b6c2">},</span>
+</span></span><span style="display:flex;"><span>        response::Response<span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>        routing::get<span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>        Router<span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">main</span><span style="color:#56b6c2">()</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">let</span> middleware <span style="color:#bc74c4">=</span> from_fn_with_state<span style="color:#56b6c2">((),</span> check<span style="color:#56b6c2">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">let</span> method <span style="color:#bc74c4">=</span> get<span style="color:#56b6c2">(</span>handler<span style="color:#56b6c2">).</span>route_layer<span style="color:#56b6c2">(</span>middleware<span style="color:#56b6c2">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">let</span> _router: <span style="color:#ecbe7b">Router</span><span style="color:#bc74c4">&lt;</span><span style="color:#56b6c2">()</span><span style="color:#bc74c4">&gt;</span> <span style="color:#bc74c4">=</span> Router::new<span style="color:#56b6c2">().</span>route<span style="color:#56b6c2">(</span><span style="color:#82cc6a">&#34;/&#34;</span><span style="color:#56b6c2">,</span> method<span style="color:#56b6c2">).</span>with_state<span style="color:#56b6c2">(());</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">async</span> <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">handler</span><span style="color:#56b6c2">()</span> -&gt; <span style="color:#bc74c4">&amp;</span><span style="color:#7fbaf5">&#39;static</span> <span style="color:#57c7ff;font-weight:bold">str</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#82cc6a">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">async</span> <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">check</span><span style="color:#56b6c2">(</span>_state: <span style="color:#ecbe7b">State</span><span style="color:#bc74c4">&lt;</span><span style="color:#56b6c2">()</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">,</span> req: <span style="color:#ecbe7b">Request</span><span style="color:#56b6c2">,</span> next: <span style="color:#ecbe7b">Next</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">Response</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">get_some_string</span><span style="color:#56b6c2">(</span>_req: <span style="color:#bc74c4">&amp;</span><span style="color:#ecbe7b">Request</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#7fbaf5">Option</span><span style="color:#bc74c4">&lt;</span><span style="color:#7fbaf5">String</span><span style="color:#bc74c4">&gt;</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span></code></pre></div><h2 id="cases">Cases</h2>
+<p>Not lets change <code>check</code> function a bit, and see the issue.</p>
+<table>
+<tr>
+    <th> Example </th>
+    <th> Builds </th>
+</tr>
+<tr>
+<td>
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">async</span> <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">check</span><span style="color:#56b6c2">(</span>_state: <span style="color:#ecbe7b">State</span><span style="color:#bc74c4">&lt;</span><span style="color:#56b6c2">()</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">,</span> req: <span style="color:#ecbe7b">Request</span><span style="color:#56b6c2">,</span> next: <span style="color:#ecbe7b">Next</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">Response</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">let</span> string <span style="color:#bc74c4">=</span> get_some_string<span style="color:#56b6c2">(</span><span style="color:#bc74c4">&amp;</span>req<span style="color:#56b6c2">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">match</span> string <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">Some</span><span style="color:#56b6c2">(</span>_<span style="color:#56b6c2">)</span> <span style="color:#bc74c4">=&gt;</span> next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">None</span> <span style="color:#bc74c4">=&gt;</span> next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
+</span></span></code></pre></div></td>
+<td> <p style="color: green"> true <p> </td>
+</tr>
+<tr>
+<td>
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">async</span> <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">check</span><span style="color:#56b6c2">(</span>_state: <span style="color:#ecbe7b">State</span><span style="color:#bc74c4">&lt;</span><span style="color:#56b6c2">()</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">,</span> req: <span style="color:#ecbe7b">Request</span><span style="color:#56b6c2">,</span> next: <span style="color:#ecbe7b">Next</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">Response</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">match</span> get_some_string<span style="color:#56b6c2">(</span><span style="color:#bc74c4">&amp;</span>req<span style="color:#56b6c2">)</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">Some</span><span style="color:#56b6c2">(</span>_<span style="color:#56b6c2">)</span> <span style="color:#bc74c4">=&gt;</span> next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">None</span> <span style="color:#bc74c4">=&gt;</span> next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span><span style="color:#56b6c2">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
+</span></span></code></pre></div></td>
+<td> <p style="color: red"> false <p> </td>
+</tr>
+<tr>
+<td>
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">async</span> <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">check</span><span style="color:#56b6c2">(</span>_state: <span style="color:#ecbe7b">State</span><span style="color:#bc74c4">&lt;</span><span style="color:#56b6c2">()</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">,</span> req: <span style="color:#ecbe7b">Request</span><span style="color:#56b6c2">,</span> next: <span style="color:#ecbe7b">Next</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">Response</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">if</span> <span style="color:#7fbaf5">let</span> <span style="color:#7fbaf5">Some</span><span style="color:#56b6c2">(</span>_<span style="color:#56b6c2">)</span> <span style="color:#bc74c4">=</span> get_some_string<span style="color:#56b6c2">(</span><span style="color:#bc74c4">&amp;</span>req<span style="color:#56b6c2">)</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span> <span style="color:#7fbaf5">else</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
+</span></span></code></pre></div></td>
+<td> <p style="color: red"> false <p> </td>
+</tr>
+<tr>
+<td>
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">async</span> <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">check</span><span style="color:#56b6c2">(</span>_state: <span style="color:#ecbe7b">State</span><span style="color:#bc74c4">&lt;</span><span style="color:#56b6c2">()</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">,</span> req: <span style="color:#ecbe7b">Request</span><span style="color:#56b6c2">,</span> next: <span style="color:#ecbe7b">Next</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">Response</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">if</span> <span style="color:#7fbaf5">let</span> <span style="color:#7fbaf5">Some</span><span style="color:#56b6c2">(</span>_<span style="color:#56b6c2">)</span> <span style="color:#bc74c4">=</span> get_some_string<span style="color:#56b6c2">(</span><span style="color:#bc74c4">&amp;</span>req<span style="color:#56b6c2">)</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">return</span> next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span><span style="color:#56b6c2">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Response::default<span style="color:#56b6c2">()</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
+</span></span></code></pre></div></td>
+<td> <p style="color: red"> false <p> </td>
+</tr>
+<tr>
+<td>
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#7fbaf5">async</span> <span style="color:#7fbaf5">fn</span> <span style="color:#57c7ff">check</span><span style="color:#56b6c2">(</span>_state: <span style="color:#ecbe7b">State</span><span style="color:#bc74c4">&lt;</span><span style="color:#56b6c2">()</span><span style="color:#bc74c4">&gt;</span><span style="color:#56b6c2">,</span> req: <span style="color:#ecbe7b">Request</span><span style="color:#56b6c2">,</span> next: <span style="color:#ecbe7b">Next</span><span style="color:#56b6c2">)</span> -&gt; <span style="color:#ecbe7b">Response</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7fbaf5">if</span> <span style="color:#7fbaf5">let</span> <span style="color:#7fbaf5">Some</span><span style="color:#56b6c2">(</span>_<span style="color:#56b6c2">)</span> <span style="color:#bc74c4">=</span> get_some_string<span style="color:#56b6c2">(</span><span style="color:#bc74c4">&amp;</span>req<span style="color:#56b6c2">)</span> <span style="color:#56b6c2">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7fbaf5">return</span> Response::default<span style="color:#56b6c2">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#56b6c2">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    next<span style="color:#56b6c2">.</span>run<span style="color:#56b6c2">(</span>req<span style="color:#56b6c2">).</span><span style="color:#7fbaf5">await</span>
+</span></span><span style="display:flex;"><span><span style="color:#56b6c2">}</span>
+</span></span></code></pre></div></td>
+<td> <p style="color: green"> true <p> </td>
+</tr>
+</table>
+<h2 id="erorr">Erorr</h2>
+<p>The error is the same in all error cases</p>
+<div class="highlight"><pre tabindex="0" style="color:#c9c9c9;background-color:#282c34;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>error[E0277]: the trait bound `axum::middleware::FromFn&lt;fn(axum::extract::State&lt;()&gt;, axum::http::Request&lt;axum::body::Body&gt;, axum::middleware::Next) -&gt; impl std::future::Future&lt;Output = axum::http::Response&lt;axum::body::Body&gt;&gt; {check_2}, (), axum::routing::Route, _&gt;: tower_service::Service&lt;axum::http::Request&lt;axum::body::Body&gt;&gt;` is not satisfied
+</span></span><span style="display:flex;"><span>   --&gt; src/main.rs:11:43
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>11  |     let method = get(handler).route_layer(middleware);
+</span></span><span style="display:flex;"><span>    |                               ----------- ^^^^^^^^^^ the trait `tower_service::Service&lt;axum::http::Request&lt;axum::body::Body&gt;&gt;` is not implemented for `axum::middleware::FromFn&lt;fn(axum::extract::State&lt;()&gt;, axum::http::Request&lt;axum::body::Body&gt;, axum::middleware::Next) -&gt; impl std::future::Future&lt;Output = axum::http::Response&lt;axum::body::Body&gt;&gt; {check_2}, (), axum::routing::Route, _&gt;`
+</span></span><span style="display:flex;"><span>    |                               |
+</span></span><span style="display:flex;"><span>    |                               required by a bound introduced by this call
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>    = help: the following other types implement trait `tower_service::Service&lt;Request&gt;`:
+</span></span><span style="display:flex;"><span>              axum::middleware::FromFn&lt;F, S, I, (T1, T2)&gt;
+</span></span><span style="display:flex;"><span>              axum::middleware::FromFn&lt;F, S, I, (T1, T2, T3)&gt;
+</span></span><span style="display:flex;"><span>              axum::middleware::FromFn&lt;F, S, I, (T1, T2, T3, T4)&gt;
+</span></span><span style="display:flex;"><span>              axum::middleware::FromFn&lt;F, S, I, (T1, T2, T3, T4, T5)&gt;
+</span></span><span style="display:flex;"><span>              axum::middleware::FromFn&lt;F, S, I, (T1, T2, T3, T4, T5, T6)&gt;
+</span></span><span style="display:flex;"><span>              axum::middleware::FromFn&lt;F, S, I, (T1, T2, T3, T4, T5, T6, T7)&gt;
+</span></span><span style="display:flex;"><span>              axum::middleware::FromFn&lt;F, S, I, (T1, T2, T3, T4, T5, T6, T7, T8)&gt;
+</span></span><span style="display:flex;"><span>              axum::middleware::FromFn&lt;F, S, I, (T1, T2, T3, T4, T5, T6, T7, T8, T9)&gt;
+</span></span><span style="display:flex;"><span>            and 8 others
+</span></span><span style="display:flex;"><span>note: required by a bound in `axum::routing::MethodRouter::&lt;S, E&gt;::route_layer`
+</span></span><span style="display:flex;"><span>   --&gt; /home/maxim/.cargo/git/checkouts/axum-3a6345d9aff97fa3/025144b/axum/src/routing/method_routing.rs:911:21
+</span></span><span style="display:flex;"><span>    |
+</span></span><span style="display:flex;"><span>911 |         L::Service: Service&lt;Request, Error = E&gt; + Clone + Send + &#39;static,
+</span></span><span style="display:flex;"><span>    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `MethodRouter::&lt;S, E&gt;::route_layer`
+</span></span></code></pre></div><h2 id="result">Result</h2>
+<p>I wonder what it's related too?</p>
+<h2 id="system-info">System info</h2>
+<pre tabindex="0"><code>Rustc version
+rustc 1.70.0 (90c541806 2023-05-31)
+
+Axum version
+axum = { git = &#34;https://github.com/tokio-rs/axum&#34;, rev = &#34;5b89f1dfaa8556a627684f7df296caef72a3de7e&#34;, features = [&#34;http2&#34;] }
+</code></pre>
+        </div>
+        
+
+<footer>
+  <p class="meta">
+    <span class="byline author vcard">Posted by <span class="fn">Maxim Zhiburt</span></span>
+    
+    <time>Aug 2, 2023</time>
+    
+      <span class="categories">
+        Tags:
+        
+          <a class="category" href="https://zhiburt.github.io/tags/rust">rust</a>  
+    
+    </span>
+  </p>
+
+  
+
+  <p class="meta">
+    
+        <a class="basic-alignment left" href="https://zhiburt.github.io/blog/posts/unsafe-transformation-01/" title="About &#39;std::mem::transmut&#39;ation">About &#39;std::mem::transmut&#39;ation</a>
+    
+
+    
+  </p>
+  
+</footer>
+
+      </article>
+    </div>
+    
+
+<aside class="sidebar thirds">
+  <section class="first odd">
+
+    
+      <h1>Hi stranger;</h1>
+    
+
+    <p>
+      
+        This is a place where I've may accidentaly leave some sthings.
+      
+    </p>
+  </section>
+
+  <section class="first odd quote-of-the-day">
+    <h1> Motd </h1>
+    
+
+    
+    
+    
+
+    <p> Не до жиру - быть бы живу. </p>
+
+  </section>
+
+  
+  
+
+
+
+<ul class="sidebar-nav">
+  <li class="sidebar-nav-item">
+    <a target="_blank" rel="noopener noreferrer" href="https://github.com/zhiburt/" title="https://github.com/zhiburt/"><i class="fa fa-github fa-3x"></i></a>
+    
+    
+    
+    
+    
+    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/maxim-zhiburt/" title="https://www.linkedin.com/in/maxim-zhiburt/"><i class="fa fa-linkedin fa-3x"></i></a>
+    
+    
+    
+    
+    
+
+  
+  
+  </li>
+</ul>
+
+  
+
+  
+
+  
+  
+  
+</aside>
+
+  </div>
+</div>
+
+    <footer role="contentinfo">
+      <p>Copyright &copy; 2023 Maxim Zhiburt - <a href="https://zhiburt.github.io/license/">License</a> -
+        <span class="credit">Powered by <a target="_blank" href="https://gohugo.io" rel="noopener noreferrer">Hugo</a> and <a target="_blank" href="https://github.com/parsiya/hugo-octopress/" rel="noopener noreferrer">Hugo-Octopress</a> theme.
+      </p>
+    </footer>
+
+    
+    
+
+
+
+    
+    
+    
+
+    
+  </body>
+</html>
+
