@@ -1,92 +1,10 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Maxim Zhiburt</title>
-    <link>https://zhiburt.github.io/</link>
-    <description>Recent content on Maxim Zhiburt</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 02 Aug 2023 13:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Interesting rustc traitbound issue with a match/if</title>
-      <link>https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/</link>
-      <pubDate>Wed, 02 Aug 2023 13:21:01 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/</guid>
-      <description>Agenda Here we will explore some strange behavior when calling function in a match/if statement.
-Base There&#39;s such a code example creating a HTTP router using tokio-rs/axum. It works perfectly.
-use axum::{ extract::{Request, State}, middleware::{from_fn_with_state, Next}, response::Response, routing::get, Router, }; fn main() { let middleware = from_fn_with_state((), check); let method = get(handler).route_layer(middleware); let _router: Router&amp;lt;()&amp;gt; = Router::new().route(&amp;#34;/&amp;#34;, method).with_state(()); } async fn handler() -&amp;gt; &amp;amp;&amp;#39;static str { &amp;#34;&amp;#34; } async fn check(_state: State&amp;lt;()&amp;gt;, req: Request, next: Next) -&amp;gt; Response { next.</description>
-    </item>
-    
-    <item>
-      <title>About &#39;std::mem::transmut&#39;ation</title>
-      <link>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</link>
-      <pubDate>Tue, 07 Feb 2023 04:21:01 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</guid>
-      <description>&amp;quot;I&#39;m particularly interested in Transfiguration, you know, turning something into something else, of course, it&#39;s supposed to be very difficult —&amp;quot; — Hermione Granger regarding transformation [src]
-The do There&#39;s a type csv::StringRecords which doesn&#39;t implement IntoIterator but &amp;amp;csv::StringRecords does.
-I was thinking if we would keep the structure and the reference along themeslfs, it would be fine. But I know that rust does not allow that (yet, cause it&#39;s self-referenctial struct).</description>
-    </item>
-    
-    <item>
-      <title>Cope with Garmin &amp;&amp; Strava limits</title>
-      <link>https://zhiburt.github.io/blog/posts/strava-note/</link>
-      <pubDate>Sun, 01 Jan 2023 04:21:01 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/blog/posts/strava-note/</guid>
-      <description>One upon a time there has been a pile of activitis in Garmin Connect which was not synced with Strava. It was thought it will be an easy thing to do to just syncronize them via some import/export feature. But it turned out not to be the case.
-A case agains automatic syncranization You can sync your Garmin Connect and Strava directly? But in such case you&#39;ll import/export all data available.</description>
-    </item>
-    
-    <item>
-      <title>How it was build</title>
-      <link>https://zhiburt.github.io/blog/posts/how-it-was-built/</link>
-      <pubDate>Thu, 13 Jan 2022 11:18:01 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/blog/posts/how-it-was-built/</guid>
-      <description>The site is built by Hugo with Hugo-Octopress theme.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Maxim Zhiburt</title><link>https://zhiburt.github.io/</link><description>Recent content on Maxim Zhiburt</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 02 Aug 2023 13:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Interesting rustc traitbound issue with a match/if</title><link>https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/</link><pubDate>Wed, 02 Aug 2023 13:21:01 +0300</pubDate><guid>https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/</guid><description>Agenda Here we will explore some strange behavior when calling function in a match/if statement.
+Base There's such a code example creating a HTTP router using tokio-rs/axum. It works perfectly.
+use axum::{ extract::{Request, State}, middleware::{from_fn_with_state, Next}, response::Response, routing::get, Router, }; fn main() { let middleware = from_fn_with_state((), check); let method = get(handler).route_layer(middleware); let _router: Router&amp;lt;()&amp;gt; = Router::new().route(&amp;#34;/&amp;#34;, method).with_state(()); } async fn handler() -&amp;gt; &amp;amp;&amp;#39;static str { &amp;#34;&amp;#34; } async fn check(_state: State&amp;lt;()&amp;gt;, req: Request, next: Next) -&amp;gt; Response { next.</description></item><item><title>About 'std::mem::transmut'ation</title><link>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</link><pubDate>Tue, 07 Feb 2023 04:21:01 +0300</pubDate><guid>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</guid><description>&amp;quot;I'm particularly interested in Transfiguration, you know, turning something into something else, of course, it's supposed to be very difficult —&amp;quot; — Hermione Granger regarding transformation [src]
+The do There's a type csv::StringRecords which doesn't implement IntoIterator but &amp;amp;csv::StringRecords does.
+I was thinking if we would keep the structure and the reference along themeslfs, it would be fine. But I know that rust does not allow that (yet, cause it's self-referenctial struct).</description></item><item><title>Cope with Garmin &amp;&amp; Strava limits</title><link>https://zhiburt.github.io/blog/posts/strava-note/</link><pubDate>Sun, 01 Jan 2023 04:21:01 +0300</pubDate><guid>https://zhiburt.github.io/blog/posts/strava-note/</guid><description>One upon a time there has been a pile of activitis in Garmin Connect which was not synced with Strava. It was thought it will be an easy thing to do to just syncronize them via some import/export feature. But it turned out not to be the case.
+A case agains automatic syncranization You can sync your Garmin Connect and Strava directly? But in such case you'll import/export all data available.</description></item><item><title>How it was build</title><link>https://zhiburt.github.io/blog/posts/how-it-was-built/</link><pubDate>Thu, 13 Jan 2022 11:18:01 +0300</pubDate><guid>https://zhiburt.github.io/blog/posts/how-it-was-built/</guid><description>The site is built by Hugo with Hugo-Octopress theme.
 I have bumped into this theme coinsidentaly on this blog http://blog.pnkfx.org/.
 If you guess what is the thing in the header. This is my take on awesome octupus from the original theme http://octopress.org/ page. The idea that it resembles a shot from Ninja Turtles tv series.
-source - https://tvtropes.org/pmwiki/ We override the original theme a little bit to be more compatible with original site.</description>
-    </item>
-    
-    <item>
-      <title>Quotes</title>
-      <link>https://zhiburt.github.io/quotes/</link>
-      <pubDate>Tue, 01 Jan 2013 21:40:56 -0500</pubDate>
-      
-      <guid>https://zhiburt.github.io/quotes/</guid>
-      <description>Things I&#39;ve found interesting some time ago.</description>
-    </item>
-    
-    <item>
-      <title>Who is this guy?</title>
-      <link>https://zhiburt.github.io/about/</link>
-      <pubDate>Tue, 01 Jan 2013 21:40:56 -0500</pubDate>
-      
-      <guid>https://zhiburt.github.io/about/</guid>
-      <description>My name is Maxim, I am a software engineer.
-todo....</description>
-    </item>
-    
-    <item>
-      <title>Archive</title>
-      <link>https://zhiburt.github.io/archive/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhiburt.github.io/archive/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Welcome</title>
-      <link>https://zhiburt.github.io/home/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhiburt.github.io/home/</guid>
-      <description>Not yet decided what to put here</description>
-    </item>
-    
-  </channel>
-</rss>
+source - https://tvtropes.org/pmwiki/ We override the original theme a little bit to be more compatible with original site.</description></item><item><title>Quotes</title><link>https://zhiburt.github.io/quotes/</link><pubDate>Tue, 01 Jan 2013 21:40:56 -0500</pubDate><guid>https://zhiburt.github.io/quotes/</guid><description>Things I've found interesting some time ago.</description></item><item><title>Who is this guy?</title><link>https://zhiburt.github.io/about/</link><pubDate>Tue, 01 Jan 2013 21:40:56 -0500</pubDate><guid>https://zhiburt.github.io/about/</guid><description>My name is Maxim, I am a software engineer.
+todo....</description></item><item><title>Archive</title><link>https://zhiburt.github.io/archive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://zhiburt.github.io/archive/</guid><description/></item><item><title>Welcome</title><link>https://zhiburt.github.io/home/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://zhiburt.github.io/home/</guid><description>Not yet decided what to put here</description></item></channel></rss>

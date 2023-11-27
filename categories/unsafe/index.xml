@@ -1,22 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>unsafe on Maxim Zhiburt</title>
-    <link>https://zhiburt.github.io/categories/unsafe/</link>
-    <description>Recent content in unsafe on Maxim Zhiburt</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 07 Feb 2023 04:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/categories/unsafe/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>About &#39;std::mem::transmut&#39;ation</title>
-      <link>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</link>
-      <pubDate>Tue, 07 Feb 2023 04:21:01 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</guid>
-      <description>&amp;quot;I&#39;m particularly interested in Transfiguration, you know, turning something into something else, of course, it&#39;s supposed to be very difficult —&amp;quot; — Hermione Granger regarding transformation [src]
-The do There&#39;s a type csv::StringRecords which doesn&#39;t implement IntoIterator but &amp;amp;csv::StringRecords does.
-I was thinking if we would keep the structure and the reference along themeslfs, it would be fine. But I know that rust does not allow that (yet, cause it&#39;s self-referenctial struct).</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>unsafe on Maxim Zhiburt</title><link>https://zhiburt.github.io/categories/unsafe/</link><description>Recent content in unsafe on Maxim Zhiburt</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 07 Feb 2023 04:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/categories/unsafe/index.xml" rel="self" type="application/rss+xml"/><item><title>About 'std::mem::transmut'ation</title><link>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</link><pubDate>Tue, 07 Feb 2023 04:21:01 +0300</pubDate><guid>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</guid><description>&amp;quot;I'm particularly interested in Transfiguration, you know, turning something into something else, of course, it's supposed to be very difficult —&amp;quot; — Hermione Granger regarding transformation [src]
+The do There's a type csv::StringRecords which doesn't implement IntoIterator but &amp;amp;csv::StringRecords does.
+I was thinking if we would keep the structure and the reference along themeslfs, it would be fine. But I know that rust does not allow that (yet, cause it's self-referenctial struct).</description></item></channel></rss>

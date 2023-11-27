@@ -1,33 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>rust on Maxim Zhiburt</title>
-    <link>https://zhiburt.github.io/tags/rust/</link>
-    <description>Recent content in rust on Maxim Zhiburt</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 02 Aug 2023 13:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Interesting rustc traitbound issue with a match/if</title>
-      <link>https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/</link>
-      <pubDate>Wed, 02 Aug 2023 13:21:01 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/</guid>
-      <description>Agenda Here we will explore some strange behavior when calling function in a match/if statement.
-Base There&#39;s such a code example creating a HTTP router using tokio-rs/axum. It works perfectly.
-use axum::{ extract::{Request, State}, middleware::{from_fn_with_state, Next}, response::Response, routing::get, Router, }; fn main() { let middleware = from_fn_with_state((), check); let method = get(handler).route_layer(middleware); let _router: Router&amp;lt;()&amp;gt; = Router::new().route(&amp;#34;/&amp;#34;, method).with_state(()); } async fn handler() -&amp;gt; &amp;amp;&amp;#39;static str { &amp;#34;&amp;#34; } async fn check(_state: State&amp;lt;()&amp;gt;, req: Request, next: Next) -&amp;gt; Response { next.</description>
-    </item>
-    
-    <item>
-      <title>About &#39;std::mem::transmut&#39;ation</title>
-      <link>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</link>
-      <pubDate>Tue, 07 Feb 2023 04:21:01 +0300</pubDate>
-      
-      <guid>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</guid>
-      <description>&amp;quot;I&#39;m particularly interested in Transfiguration, you know, turning something into something else, of course, it&#39;s supposed to be very difficult —&amp;quot; — Hermione Granger regarding transformation [src]
-The do There&#39;s a type csv::StringRecords which doesn&#39;t implement IntoIterator but &amp;amp;csv::StringRecords does.
-I was thinking if we would keep the structure and the reference along themeslfs, it would be fine. But I know that rust does not allow that (yet, cause it&#39;s self-referenctial struct).</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>rust on Maxim Zhiburt</title><link>https://zhiburt.github.io/tags/rust/</link><description>Recent content in rust on Maxim Zhiburt</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 02 Aug 2023 13:21:01 +0300</lastBuildDate><atom:link href="https://zhiburt.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml"/><item><title>Interesting rustc traitbound issue with a match/if</title><link>https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/</link><pubDate>Wed, 02 Aug 2023 13:21:01 +0300</pubDate><guid>https://zhiburt.github.io/blog/posts/interesting-rustc-traitbound-issue/</guid><description>Agenda Here we will explore some strange behavior when calling function in a match/if statement.
+Base There's such a code example creating a HTTP router using tokio-rs/axum. It works perfectly.
+use axum::{ extract::{Request, State}, middleware::{from_fn_with_state, Next}, response::Response, routing::get, Router, }; fn main() { let middleware = from_fn_with_state((), check); let method = get(handler).route_layer(middleware); let _router: Router&amp;lt;()&amp;gt; = Router::new().route(&amp;#34;/&amp;#34;, method).with_state(()); } async fn handler() -&amp;gt; &amp;amp;&amp;#39;static str { &amp;#34;&amp;#34; } async fn check(_state: State&amp;lt;()&amp;gt;, req: Request, next: Next) -&amp;gt; Response { next.</description></item><item><title>About 'std::mem::transmut'ation</title><link>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</link><pubDate>Tue, 07 Feb 2023 04:21:01 +0300</pubDate><guid>https://zhiburt.github.io/blog/posts/unsafe-transformation-01/</guid><description>&amp;quot;I'm particularly interested in Transfiguration, you know, turning something into something else, of course, it's supposed to be very difficult —&amp;quot; — Hermione Granger regarding transformation [src]
+The do There's a type csv::StringRecords which doesn't implement IntoIterator but &amp;amp;csv::StringRecords does.
+I was thinking if we would keep the structure and the reference along themeslfs, it would be fine. But I know that rust does not allow that (yet, cause it's self-referenctial struct).</description></item></channel></rss>
